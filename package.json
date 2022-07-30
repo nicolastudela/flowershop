@@ -1,0 +1,26 @@
+{
+  "name": "flowershop",
+  "version": "1.0.0",
+  "description": "flower shop code challenge",
+  "main": "./src/main.ts",
+  "engines": {
+    "npm": ">=8.7.0",
+    "node": ">=16.14.0"
+  },
+  "scripts": {
+    "start": "npx tsc && node ./dist/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npx eslint . --ext .ts,.js"
+  },
+  "author": "Nicolas Tudela",
+  "license": "ISC",
+  "devDependencies": {
+    "@tsconfig/node16": "^1.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
+    "eslint": "^8.20.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "typescript": "^4.7.4"
+  }
+}
