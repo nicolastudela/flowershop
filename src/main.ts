@@ -1,3 +1,4 @@
+import fs from "fs";
 import itemBundles from "./items";
 import {
   Bill,
@@ -13,7 +14,7 @@ import calculateBillItemFromOrderItem from "./orderBundeler"
  *
  * @param order  (representing a list of items requested)
  * @param items  The item-products(name, code, bundle) list.
- *  IMPORTANT: The bundles on each product should be asc-sorted by bundle count.
+ *  IMPORTANT: The bundles on each product should be desc-sorted by bundle count.
  * @returns bill (representing the bill to be handed to the user detailing counts of bundles and costs)
  */
 const invoiceOrder = (order: Order, items: Item[]) => {
@@ -27,7 +28,7 @@ const invoiceOrder = (order: Order, items: Item[]) => {
   } as Bill;
 };
 
-function main(orders: Order[]) {
+function main(testFilePath: string) {
   // First we sort-desc by bundles units on each item. Its a pre-condition to
   // calculate efficiently bundles-counts when an order arrives.
   // (is expected to do this sorting once at the entirely shop lifecylcle)
@@ -41,33 +42,23 @@ function main(orders: Order[]) {
       } as Item)
   );
 
-  orders.forEach((order) => {
-    console.log(`Bill for order: ${order.code}`);
+  // reading tests from file path provided
+  const allFileContents =  fs.readFileSync(testFilePath, "utf-8");
+  const items = allFileContents.split(/\r?\n/).map(line =>  {
+     const splitted = line.split(" "); 
+     return {  count: Number.parseInt(splitted[0]), code: splitted[1], } as unknown as OrderItem}
+  );
 
-    const bill = invoiceOrder(order, itemsWithBundlesSortedByUnits);
+  // logs items read 
+  console.log(`Input from ${testFilePath}`);
+  console.log(items);
 
-    console.log(JSON.stringify(bill, null, 2));
-  });
+  // actual calculation of the items received
+  const bill = invoiceOrder({code: `from ${testFilePath}`, items}, itemsWithBundlesSortedByUnits);
+
+  // logs result
+  console.log(`Result for order read in ${testFilePath}`);
+  console.log(JSON.stringify(bill, null, 2));
 }
 
-const testOrders = [
-  {
-    code: "test order 1",
-    items: [
-      {
-        code: "R12",
-        count: 10,
-      },
-      {
-        code: "L09",
-        count: 15,
-      },
-      {
-        code: "T58",
-        count: 13,
-      },
-    ],
-  },
-] as Order[];
-
-main(testOrders);
+main("tests.txt");
