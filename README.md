@@ -13,8 +13,17 @@ hit `npm install`
 
 hit `npm run start` to run the program
 
+## Notes about the tests
 
-## Notes the code 
+tests are located at `./tests.txt`
+
+each line represents a item requested. The program does not contains any validation of formatting.
+10 R12
+15 L09
+13 T58
+
+
+## Notes about the code 
 
 Probably there is a lot of code and configuration for a the problem proposed. But why not to be neat and build something nice :) 
 
@@ -23,6 +32,7 @@ Probably there is a lot of code and configuration for a the problem proposed. Bu
   -  `types.ts` contains shared types used
   -  `items.ts` represents the flower shop bundle/items/product options. I extracted into another file to make it easily able to fetch this data could come from an API call or DB
   -  `orderBundeler.ts` contains the logic to determine the cost and bundle breakdown for each product. It is a critic logic and deservede to be extracted from the main program flow. (Better for testing as well)
+  - `bundleResultGroup.ts` has its own module since it has its own logic.
   - `main.ts` is where the structure of the program is defined. Here you can edit the TestOrders.
 
 ## Other files
