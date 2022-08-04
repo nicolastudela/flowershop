@@ -18,9 +18,6 @@ hit `npm run start` to run the program
 tests are located at `./tests.txt`
 
 each line represents a item requested. The program does not contains any validation of formatting.
-10 R12
-15 L09
-13 T58
 
 
 ## Notes about the code 
